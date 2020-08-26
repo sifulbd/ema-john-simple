@@ -14,7 +14,7 @@ function Shop() {
     setCart(newCart);
   }
 
-  return (
+  return ( 
     <div>
       <div className="shop-container">
         <div className="product-container">
