@@ -20,6 +20,7 @@ function Shop() {
         <div className="product-container">
           {products.map((pd) => (
             <Product
+              showAddtoCArt={true}
               handleAddProduct={handleAddProduct}
               product={pd}
               key={pd.key}
