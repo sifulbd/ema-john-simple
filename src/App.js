@@ -9,6 +9,7 @@ import {
   Link
 } from "react-router-dom";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import Review from "./components/Review/Review";
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             <Shop></Shop>
           </Route>
           <Route path="/review">
-            <h1>This is review</h1>
+            <Review></Review>
           </Route>
           <Route path="/inventory">
             <h2>This is inventory </h2>
