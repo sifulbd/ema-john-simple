@@ -24,6 +24,7 @@ function Login() {
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
+    
     const handleClick = () => {
         const provider = new firebase.auth.GoogleAuthProvider();    
         firebase.auth().signInWithPopup(provider)
