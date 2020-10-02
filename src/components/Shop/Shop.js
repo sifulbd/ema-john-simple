@@ -7,21 +7,43 @@ import { addToDatabaseCart, getDatabaseCart } from "../../utilities/databaseMana
 import { Link } from "react-router-dom";
 
 function Shop() {
-  const first10 = fakeData.slice(0, 10);
-  const [products, setProducts] = useState(first10);
+  // const first10 = fakeData.slice(0, 10);
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
+  useEffect(() => {
+    fetch('http://localhost:5000/products')
+    .then(res => res.json())
+    .then(data => setProducts(data))
+  }, [])
 
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const productsKeys = Object.keys(savedCart);
-    const cartProducts = productsKeys.map((key) => {
-      const product = fakeData.find((pd) => pd.key === key);
-      product.quantity = savedCart[key];
-      return product;
-    });
-    setCart(cartProducts);
+    
+    fetch('http://localhost:5000/productsByKeys', {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(productsKeys)
+    })
+    .then(res => res.json())
+    .then(data => setCart(data))
   }, []);
+
+  // useEffect(() => {
+  //   const savedCart = getDatabaseCart();
+  //   const productsKeys = Object.keys(savedCart);
+  //   if(products.length > 0){
+  //     const cartProducts = productsKeys.map((key) => {
+  //       const product = products.find((pd) => pd.key === key);
+  //       product.quantity = savedCart[key];
+  //       return product;
+  //     });
+  //     setCart(cartProducts);
+  //   }
+  // }, [products]);
 
 
   function handleAddProduct(product) {

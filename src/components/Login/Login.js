@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import './login.css';
-import firebaseConfig from './firebaseConfig';
+import firebaseConfig from '../../firebaseConfig';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -36,7 +36,12 @@ function Login() {
             email: email,
             photo: photoURL,
           };
-          setUser(signInUser);
+          const newUserInfo = {...user};
+          newUserInfo.success = true;
+          newUserInfo.error = '';
+          setUser(newUserInfo);
+          setLoggedInUser(newUserInfo);
+          history.replace(from);
         })
         .catch(err => console.log(err));
       }

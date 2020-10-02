@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getDatabaseCart, removeFromDatabaseCart, processOrder } from "../../utilities/databaseManager";
-import fakeData from "../../fakeData";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import Cart from "../Cart/Cart";
 import { Link, useHistory } from "react-router-dom";
 import happyImage from '../../images/giphy.gif';
+import { faBorderStyle } from "@fortawesome/free-solid-svg-icons";
 
 function Review() {
   const [cart, setCart] = useState([]);
@@ -14,12 +14,23 @@ function Review() {
   useEffect(() => {
     const savedCart = getDatabaseCart();
     const productsKeys = Object.keys(savedCart);
-    const cartProducts = productsKeys.map((key) => {
-      const product = fakeData.find((pd) => pd.key === key);
-      product.quantity = savedCart[key];
-      return product;
-    });
-    setCart(cartProducts);
+
+    fetch('http://localhost:5000/productsByKeys', {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(productsKeys)
+    })
+    .then(res => res.json())
+    .then(data => setCart(data))
+
+    // const cartProducts = productsKeys.map((key) => {
+    //   const product = fakeData.find((pd) => pd.key === key);
+    //   product.quantity = savedCart[key];
+    //   return product;
+    // });
+    // setCart(cartProducts);
   }, []);
 
   const handleProceedCheckout = () => {

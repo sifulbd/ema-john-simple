@@ -4,7 +4,18 @@ import Product from "../Product/Product";
 
 const Cart = (props) => {
   const cart = props.cart;
-  const totalPrice = cart.reduce((total, prd) => total + prd.price * prd.quantity , 0);
+
+  const totalPrice = cart.reduce((total, prd) => 
+    total + prd.price * (prd.quantity || 1), 
+  0);
+
+  // let totalPrice = 0;
+  // for(let i = 0; i < cart.length; i++) {
+  //   const product = cart[i];
+  //   totalPrice = totalPrice + product.price * (product.quantity || 1);
+  //   console.log(totalPrice)
+  // }
+
   let shipping = 0;
   if (totalPrice > 35) {
     shipping = 12.99;

@@ -15,6 +15,7 @@ import Login from "./components/Login/Login";
 import { createContext } from "react";
 import { useState } from "react";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Inventory from "./components/Inventory/Inventory";
 
 export const UserContext = createContext();
 
@@ -26,7 +27,7 @@ function App() {
     <UserContext.Provider value = {[loggedInUser, setLoggedInUser]}>
     <h3>{loggedInUser.email ? loggedInUser.email : ''}</h3>
       <Router>
-      <Header></Header>
+        <Header></Header>
         <Switch>
           <Route path="/shop">
             <Shop></Shop>
@@ -41,7 +42,7 @@ function App() {
             <Login></Login>
           </Route>
           <PrivateRoute path="/inventory">
-            <h2>This is inventory </h2>
+            <Inventory></Inventory>
           </PrivateRoute>
           <Route exact path="/">
             <h2>Welcome home</h2>
